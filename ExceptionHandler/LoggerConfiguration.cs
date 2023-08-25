@@ -26,7 +26,7 @@ namespace ExceptionHandler
         static string sqlSettConStr = @"Data Source=SFNMSSQLDB\SFNMSSQLDB;Initial Catalog=SFN_ServiceManager;User ID=sfn_bt;Password=mgu204p2";
 
         /// <summary>
-        /// log4net kütüphanesinin kullanıma hazır hale gelmesini sağlayan metod
+        /// The method that makes the log4net library available for use
         /// </summary>
         public static void ConfigureAppender(LoggerType lType, ref ILoggerRepository iRepo)
         {
@@ -59,7 +59,7 @@ namespace ExceptionHandler
         }
 
         /// <summary>
-        /// Veritabanına(sadece mssql) loglama için ayarlamaların yapıldığı metod
+        /// Method to make settings for logging to database (only mssql)
         /// </summary>
         /// <returns></returns>
         private static IAppender GetAdoNetAppender(LoggerType lType = LoggerType.Database)
@@ -185,7 +185,7 @@ namespace ExceptionHandler
         }
 
         /// <summary>
-        /// Mail loglama için ayarlamaların yapıldığı metod
+        /// The method by which the settings are made for mail logging
         /// </summary>
         /// <returns></returns>
         private static IAppender GetMailAppender()
@@ -196,7 +196,7 @@ namespace ExceptionHandler
                 PatternLayout patternLayout = new PatternLayout { ConversionPattern = "[%date] %newline [%thread] %username %property{exNamespace}-%property{exClass}-%property{exMethod}-Line %property{exLine} %newline %message %newline %exception %newline %property{callingNamespace}" };
                 patternLayout.ActivateOptions();
 
-                //CommonConfig ile alınması durumunda Circular Ref. tasarımsal hatasına düşmüş oluyoruz. Dependency Injection için uygun ortak alanlar olmadığından manuel olarak çekim yapıldı. burası için ekstra olarak ilgili ayarların regedit tarafından kontrol edilmesi olabilir yavaşlık durumunda.
+                //Circular Ref. We fall into a design error. It was shot manually as there were no suitable common areas for Dependency Injection. In case of slowness, it may be that the relevant settings are checked by regedit as an extra for this place.
                 #region Mail ile ilgili bilgilerin alındığı kısım
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SELECT [key], [value] FROM tbl_CommonConfig WHERE [key] IN('_emailAdress', '_smtpPort', '_smtpHost', '_enableSSL', '_userName', '_password')", con);
@@ -218,12 +218,12 @@ namespace ExceptionHandler
                     Username = di["_userName"],
                     Password = di["_password"],
                     EnableSsl = false,
-                    To = "bt@sefine.com.tr",
+                    To = "",
                     BufferSize = 1,
                     Threshold = Level.All,
                     Lossy = false,
                     From = di["_emailAdress"],
-                    Subject = "SEFINE SOFTWARE EXCEPTION",
+                    Subject = "",
                     Layout = patternLayout,
                     ErrorHandler = new ErrorHandler()
                 };
@@ -245,7 +245,7 @@ namespace ExceptionHandler
         }
 
         /// <summary>
-        /// Dosyaya loglama için ayalarmaların yapıldığı metod
+        /// Method to make settings for logging to file
         /// </summary>
         /// <returns></returns>
         private static IAppender GetFileAppender()
@@ -258,7 +258,7 @@ namespace ExceptionHandler
                 var appender = new Appenders.AsyncFileAppender
                 {
                     Name = "FileAppender",
-                    File = "SFN_SOFTWARE_LOG.txt",
+                    File = "SOFTWARE_LOG.txt",
                     MaximumFileSize = "10MB",
                     RollingStyle = RollingFileAppender.RollingMode.Size,
                     StaticLogFileName = true,

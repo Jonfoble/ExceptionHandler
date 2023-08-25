@@ -4,7 +4,7 @@ using System;
 namespace ExceptionHandler
 {
     /// <summary>
-    /// Log4Net içerisinde oluşacak hataları handle etmek için oluşturuldu
+    /// Created to handle errors that will occur in Log4Net.
     /// </summary>
     public class ErrorHandler : IErrorHandler
     {

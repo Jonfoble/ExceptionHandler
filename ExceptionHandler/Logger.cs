@@ -26,11 +26,11 @@ namespace ExceptionHandler
         #endregion
 
         /// <summary>
-        /// Hata fırlatıldığı noktalarda kullanılması gereken metod
+        /// Method that needs to be used in case of an exception.
         /// </summary>
-        /// <param name="ex">Hata</param>
-        /// <param name="uMessage">Opsiyonel kullanıcı mesajı</param>
-        /// <param name="lType">Loglama Tipi</param>
+        /// <param name="ex">Exception</param>
+        /// <param name="uMessage">Optional User Message</param>
+        /// <param name="lType">Logging Type</param>
         public static void W(Exception ex, string uMessage = "", LoggerType lType = LoggerType.Database)
         {
             try
@@ -70,10 +70,10 @@ namespace ExceptionHandler
         }
 
         /// <summary>
-        /// Sadece bilgi amaçlı loglama yapılması durumunda kullanılması gereken metod
+        /// Method that needs to be used when only logging for info.
         /// </summary>
-        /// <param name="lType">Loglama Tipi</param>
-        /// <param name="message">Mesaj</param>
+        /// <param name="lType">Logging Type</param>
+        /// <param name="message">Message</param>
         public static void I(string message, LoggerType lType = LoggerType.Database)
         {
             try
@@ -99,7 +99,7 @@ namespace ExceptionHandler
         }
 
         /// <summary>
-        /// Belgeleme amaçı ile oluşturulmuş ve tekrarlayan kayıtların ayrı satırda tutulması gerektiğinde kullanılması gereken metod
+        /// The method to be used when repetitive records created for documentation purposes should be kept on a separate line.
         /// </summary>
         /// <param name="message"></param>
         public static void H(string message)
